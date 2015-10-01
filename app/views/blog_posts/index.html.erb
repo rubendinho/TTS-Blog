@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Current Blog Posts</h1>
+
+<div class="container">
+  <div class="row">
+    <% @blog_posts.each do |entry| %>
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class=panel-heading>
+            <strong><%= entry.title %></strong>
+          </div>
+          <div class="panel-body">
+            By <%= entry.author %> | posted on <i><%=entry.created_at.strftime("%B %d, %Y")%></i></p>
+  
+            <% if entry.blog_entry.length >=250 %>
+              <p><%= entry.blog_entry[0...250] %>...<br/> [<%=link_to "Read More", entry%>]</p>  
+            <% else %>
+              <p><%= entry.blog_entry%></p>
+            <% end %>
+          </div>
+          <div class="panel-footer">
+          <%= link_to 'Show', entry, class: "btn btn-primary" %>
+          <%= link_to 'Edit', edit_blog_post_path(entry), class: "btn btn-warning" %>
+          <%= link_to 'Delete', entry, method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+  </div>
+</div>
+
+<%= link_to 'New Entry', new_blog_post_path, class: "btn btn-primary" %>
